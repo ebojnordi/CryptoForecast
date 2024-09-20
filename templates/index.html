@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Table Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<!--    <link rel="preload" href="{{ url_for('static', filename='css/fonts/Graphik-Regular-Web.woff2') }}">-->
+
+</head>
+<body>
+    <div id="currentTableContainer"></div>
+    <div id="forecastedTableContainer"></div>
+
+
+  <script>
+    // Function to create a table with a specific column order
+    function createTable(data, cryptoName) {
+        // Create a table element
+        var $table = $('<table><caption>Price Forecast for ' + cryptoName + ' -- NZD</caption></table>').addClass('ForecastedPriceTable');
+        var $thead = $('<thead></thead>');
+        var $tbody = $('<tbody></tbody>');
+
+        // Define the correct column order
+        var columnOrder = ['Date', 'Price', 'Lower', 'Upper'];
+
+        // Create table header
+        var $headerRow = $('<tr></tr>');
+        columnOrder.forEach(function(key) {
+            $headerRow.append($('<th></th>').text(key));
+        });
+        $thead.append($headerRow);
+
+        // Create table rows
+        data.forEach(function(row) {
+            var $row = $('<tr></tr>');
+            columnOrder.forEach(function(key) {
+                $row.append($('<td></td>').text(row[key]));
+            });
+            $tbody.append($row);
+        });
+
+        // Append thead and tbody to the table
+        $table.append($thead).append($tbody);
+
+        // Append the table to the container
+        $('#forecastedTableContainer').html($table);
+    }
+    function currentPrice(data, cryptoName) {
+        // Create a table element
+        var $table = $('<table><caption>Current Price for ' + cryptoName + ' -- NZD</caption></table>').addClass('CurrentPriceTable');
+        var $thead = $('<thead></thead>');
+        var $tbody = $('<tbody></tbody>');
+
+        // Define the correct column order
+        var columnOrder = ['Date', 'Price', 'Lower', 'Upper'];
+
+        // Create table header
+        var $headerRow = $('<tr></tr>');
+        columnOrder.forEach(function(key) {
+            $headerRow.append($('<th></th>').text(key));
+        });
+        $thead.append($headerRow);
+
+        // Create a single table row for the firstItem (data)
+        var $row = $('<tr></tr>');
+        columnOrder.forEach(function(key) {
+            $row.append($('<td></td>').text(data[key]));
+        });
+         $tbody.append($row);
+
+
+        // Append thead and tbody to the table
+        $table.append($thead).append($tbody);
+
+        // Append the table to the container
+        $('#currentTableContainer').html($table);
+    }
+
+    $(document).ready(function() {
+        // Convert the Jinja data to a JavaScript variable
+        var forecast = {{ forecast|tojson|safe }};
+        var firstItem = forecast[0];  // This will hold the first row
+        var data = forecast.slice(1);  // This will hold the rest of the rows
+        currentPrice(firstItem, "Bitcoin")
+        // Call the function directly with the desired crypto name
+        createTable(data, "Bitcoin");
+    });
+</script>
+
+</body>
+</html>

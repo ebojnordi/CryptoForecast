@@ -1,0 +1,73 @@
+@font-face {
+    font-family: 'Graphik-Regular-Web.woff2';
+    src: url('../css/fonts/Graphik-Regular-Web.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+    font-family: 'Graphik-Regular-Web', Helvetica;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+
+}
+
+caption {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+
+}
+
+.ForecastedPriceTable, .CurrentPriceTable {
+    border-collapse: collapse;
+    margin: 25px 0;
+    /*font-size: 0.9em;*/
+    /*font-family: sans-serif;*/
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.ForecastedPriceTable thead tr {
+    background-color: #267370;
+    color: #ffffff;
+    text-align: left;
+}
+
+.CurrentPriceTable thead tr {
+    background-color: #53C6C2;
+    color: #ffffff;
+    text-align: left;
+}
+
+.ForecastedPriceTable th,
+.ForecastedPriceTable td,
+.CurrentPriceTable th,
+.CurrentPriceTable td {
+    padding: 12px 15px;
+}
+
+.ForecastedPriceTable tbody tr,
+.CurrentPriceTable tbody tr{
+    border-bottom: 1px solid #dddddd;
+}
+
+.ForecastedPriceTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.ForecastedPriceTable tbody tr:last-of-type {
+    border-bottom: 2px solid #267370;
+}
+
+.CurrentPriceTable tbody tr:last-of-type {
+    border-bottom: 2px solid #53C6C2;
+}
+
+.ForecastedPriceTable tbody tr.active-row {
+    font-weight: bold;
+    color: #267370;
+}
